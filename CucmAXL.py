@@ -190,8 +190,6 @@ class CucmAXL(zeep.Client):
         except:
             raise
 
-        return thisService
-
     def __getattr__(self, key):
         return self.axlService[key]
 
