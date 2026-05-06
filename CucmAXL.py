@@ -191,8 +191,8 @@ class CucmAXL(zeep.Client):
         # Make sure to update the instances count
         CucmAXL.instances.append(self)
 
-    def __getattr__(self, key):
-        return self.axlService.service[key]
+    def __getattr__(self):
+        return self.axlService
 
     def __getitem__(self, key):
         try:
