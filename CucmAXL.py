@@ -141,6 +141,14 @@ class CucmAXL(zeep.Client):
     _VersionNum = "0.1.0.0"
     _VersionTuple = (0, 1, 0, 0)
 
+    @zeep.Client.service.getter
+    def service(self):
+        return self._service
+    
+    @zeep.Client.service.setter
+    def service(self, value: Any):
+        self._service = value
+
     def __init__(
             self, 
             wsdlPath: str,
@@ -193,22 +201,22 @@ class CucmAXL(zeep.Client):
         return thisService
 
     def __getattr__(self, key):
-        return self.service[key]
+        return self.client.service[key]
 
     def __getitem__(self, key):
         try:
-            return self.service._operations[key]
+            return self.client.service._operations[key]
         except KeyError:
             raise AttributeError("Service has no operation %r" % key)
 
     def __iter__(self):
-        return iter(self.service._operations.items())
+        return iter(self.client.service._operations.items())
 
     def __dir__(self):
         return list(
             itertools.chain(
                 dir(super()), 
-                self.service._operations
+                self.client.service._operations
             )
         )
     
