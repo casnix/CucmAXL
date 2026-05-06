@@ -147,7 +147,7 @@ class CucmAXL(zeep.Client):
             user: str, 
             password: str, 
             targetServer: str
-        ):
+        ) -> zeep.proxy.ServiceProxy:
 
         self.logger = logging.getLogger(__name__)
         logging.basicConfig(
@@ -183,12 +183,14 @@ class CucmAXL(zeep.Client):
         )
 
         try:
-            self.service: zeep.proxy.ServiceProxy = self.client.create_service(
+            thisService: zeep.proxy.ServiceProxy = self.client.create_service(
                 "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
                 targetServer
             )
         except:
             raise
+
+        return thisService
 
     def __getattr__(self, key):
         return self.service[key]
