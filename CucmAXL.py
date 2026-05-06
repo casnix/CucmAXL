@@ -195,22 +195,22 @@ class CucmAXL(zeep.Client):
         CucmAXL.instances.append(self)
 
     def __getattr__(self, key):
-        return self.axlService.service[key]
+        return self.axlService[key]
 
     def __getitem__(self, key):
         try:
-            return self.axlService.service._operations[key]
+            return self.axlService._operations[key]
         except KeyError:
             raise AttributeError("Service has no operation %r" % key)
 
     def __iter__(self):
-        return iter(self.axlService.service._operations.items())
+        return iter(self.axlService._operations.items())
 
     def __dir__(self):
         return list(
             itertools.chain(
                 dir(super()), 
-                self.axlService.service._operations
+                self.axlService._operations
             )
         )
     
