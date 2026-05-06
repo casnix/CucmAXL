@@ -146,7 +146,7 @@ class CucmAXL(zeep.Client):
         return self._service
     
     @zeep.Client.service.setter
-    def service(self, value: Any):
+    def service(self, value: any):
         self._service = value
 
     def __init__(
