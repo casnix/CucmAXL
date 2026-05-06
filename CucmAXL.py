@@ -141,21 +141,13 @@ class CucmAXL(zeep.Client):
     _VersionNum = "0.1.0.0"
     _VersionTuple = (0, 1, 0, 0)
 
-    @zeep.Client.service.getter
-    def service(self):
-        return self._service
-    
-    @zeep.Client.service.setter
-    def service(self, value: any):
-        self._service = value
-
     def __init__(
             self, 
             wsdlPath: str,
             user: str, 
             password: str, 
             targetServer: str
-        ) -> zeep.proxy.ServiceProxy:
+        ):
 
         self.logger = logging.getLogger(__name__)
         logging.basicConfig(
@@ -191,7 +183,7 @@ class CucmAXL(zeep.Client):
         )
 
         try:
-            thisService: zeep.proxy.ServiceProxy = self.client.create_service(
+            self.axlService: zeep.proxy.ServiceProxy = self.client.create_service(
                 "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
                 targetServer
             )
@@ -201,22 +193,22 @@ class CucmAXL(zeep.Client):
         return thisService
 
     def __getattr__(self, key):
-        return self.client.service[key]
+        return self.axlService[key]
 
     def __getitem__(self, key):
         try:
-            return self.client.service._operations[key]
+            return self.axlService._operations[key]
         except KeyError:
             raise AttributeError("Service has no operation %r" % key)
 
     def __iter__(self):
-        return iter(self.client.service._operations.items())
+        return iter(self.axlService._operations.items())
 
     def __dir__(self):
         return list(
             itertools.chain(
                 dir(super()), 
-                self.client.service._operations
+                self.axlService._operations
             )
         )
     
