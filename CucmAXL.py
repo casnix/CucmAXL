@@ -140,7 +140,6 @@ class CucmAXL(zeep.Client):
     _Version = "0.1.0-alpha"
     _VersionNum = "0.1.0.0"
     _VersionTuple = (0, 1, 0, 0)
-    instances = []
 
     def __init__(
             self, 
@@ -190,9 +189,6 @@ class CucmAXL(zeep.Client):
             )
         except:
             raise
-
-        # Make sure to update the instances count
-        CucmAXL.instances.append(self)
 
     def __getattr__(self, key):
         return self.service[key]
