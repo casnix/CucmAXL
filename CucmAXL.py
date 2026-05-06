@@ -165,7 +165,9 @@ class CucmAXL(zeep.Client):
         base64Bytes = base64.b64encode(textBytes)
         base64_basicPassword = base64Bytes.decode('utf-8')
 
-        self.transport = zeep.transports.Transport(verify_ssl=False)
+        session = requests.Session()
+        session.verify = False
+        self.transport = zeep.transports.Transport(session=session)
         self.settings = zeep.Settings(
             strict=False, 
             extra_http_headers = {
