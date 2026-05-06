@@ -177,14 +177,14 @@ class CucmAXL(zeep.Client):
             }
         )
 
-        self.client = zeep.Client(
+        client = zeep.Client(
             wsdl = wsdlPath, 
             transport = self.transport, 
             settings = self.settings
         )
 
         try:
-            self.axlService: zeep.proxy.ServiceProxy = self.client.create_service(
+            self.axlService: zeep.proxy.ServiceProxy = client.create_service(
                 "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
                 targetServer
             )
