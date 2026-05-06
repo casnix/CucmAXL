@@ -184,7 +184,7 @@ class CucmAXL(zeep.Client):
         )
 
         try:
-            self.axlService = self.client.create_service(
+            self.axlService: zeep.proxy.ServiceProxy = self.client.create_service(
                 "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
                 targetServer
             )
@@ -194,8 +194,8 @@ class CucmAXL(zeep.Client):
         # Make sure to update the instances count
         CucmAXL.instances.append(self)
 
-    def __getattr__(self):
-        return self.axlService
+    def __getattr__(self, key):
+        return self.axlService[key]
 
     def __getitem__(self, key):
         try:
