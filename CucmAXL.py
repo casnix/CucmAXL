@@ -184,7 +184,7 @@ class CucmAXL(zeep.Client):
         )
 
         self.axlService = self.client.create_service(
-            "{http://www.cisco.com/AXLAPIService/}AXLAPIService",
+            "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
             targetServer
         )
 
