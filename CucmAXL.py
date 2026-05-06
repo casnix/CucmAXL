@@ -183,10 +183,13 @@ class CucmAXL(zeep.Client):
             settings = self.settings
         )
 
-        self.axlService = self.client.create_service(
-            "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
-            targetServer
-        )
+        try:
+            self.axlService = self.client.create_service(
+                "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding",
+                targetServer
+            )
+        except:
+            raise
 
         # Make sure to update the instances count
         CucmAXL.instances.append(self)
