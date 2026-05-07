@@ -3,7 +3,7 @@
 # A set of python classes to work with Cisco Unified Communications Manager
 # (CUCM)'s SOAP API.
 #
-# Version 0.1.0-alpha (may not work)
+# Versions
 #   - String: can be checked with _MODULE__CucmAXL.Version()
 #       Format is "MAJOR.MINOR.PATCH-RELEASE"
 #   - Number (as string): can be checked with _MODULE__CucmAXL.VersionNum()
